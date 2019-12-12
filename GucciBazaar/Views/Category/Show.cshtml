@@ -1,0 +1,26 @@
+﻿@model GucciBazaar.Models.Category
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title></title>
+</head>
+<body>
+    <div>
+        <br />
+        <p>@Model.Name</p>
+        @Html.ActionLink(linkText: "Edit", actionName: "Edit", routeValues: new { Id = Model.Id }, htmlAttributes: null)
+        <br />
+        <form method="post" action="/Category/Delete/@Model.Id">
+            @Html.HttpMethodOverride(HttpVerbs.Delete)
+            <button type="submit">Sterge categorie</button>
+        </form>
+    </div>
+</body>
+</html>

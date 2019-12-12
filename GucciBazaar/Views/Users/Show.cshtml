@@ -1,0 +1,38 @@
+﻿@model GucciBazaar.Models.ApplicationUser
+@{
+    ViewBag.Title = "Edit User";
+}
+@using Microsoft.AspNet.Identity;
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title></title>
+</head>
+<body>
+    <div>
+        <div class="panel-heading">Nume utilizator: @Model.UserName</div>
+        <div class="panel-body">
+            <i class="glyphicon glyphicon-envelope"></i> Email utilizator:
+            <span class="label label-default">@Model.Email</span>
+            <br /><br />
+            @Html.HiddenFor(m => m.Id)
+
+            @if (@Model.PhoneNumber != null)
+            {
+                <i class="glyphicon glyphicon-phone"></i>@:Telefon utilizator:<span class="label label-default">@Model.PhoneNumber</span>
+            }
+        </div>
+        <div class="panel-footer">
+            <a class="btn btn btn-success" href="/Users/Edit/@Model.Id">
+                Editare utilizator
+            </a>
+            @if (Model.Id != User.Identity.GetUserId())
+            {
+                <a class="btn btn-success" href="/Users/Delete/@Model.Id">Sterge utilizator</a>
+            }
+        </div>
+    </div>
+</body>
+</html>

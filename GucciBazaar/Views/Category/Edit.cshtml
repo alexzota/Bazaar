@@ -1,0 +1,28 @@
+﻿@model GucciBazaar.Models.Category
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title></title>
+</head>
+<body>
+    <div>
+        <h2>Edit</h2>
+        <p>Afisare formular de editare categorie - cu datele vechi ale Categoriei</p>
+        <form method="post" action="/Category/Edit/@Model.Id">
+            @Html.HttpMethodOverride(HttpVerbs.Put)
+            <label>Nume</label>
+            <br />
+            <input type="text" name="CategoryName" value="@Model.Name" />
+            <br /><br />
+            <button type="submit">Modifica categorie</button>
+        </form>
+    </div>
+</body>
+</html>

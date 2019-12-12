@@ -1,0 +1,125 @@
+﻿@model GucciBazaar.Models.ProductAdditionRequest
+@using Microsoft.AspNet.Identity
+@{
+    ViewBag.Title = "Show";
+}
+
+<h2>Show</h2>
+
+<div>
+    <h4>ProductAdditionRequest</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.CreationDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CreationDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.UpdateDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UpdateDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Title)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Title)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CategoryId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CategoryId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.UserId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UserId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ApproverId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ApproverId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ImagePath)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ImagePath)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Price)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Price)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CurrentState)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CurrentState)
+        </dd>
+
+    </dl>
+</div>
+@if (Model.CurrentState == GucciBazaar.Models.StateTypes.Pending)
+{
+
+    if (User.IsInRole("Administrator"))
+    {
+        using (Html.BeginForm("Approve", "ProductAdditionRequests", FormMethod.Post))
+        {
+            @Html.HiddenFor(model => model.Id)
+            @Html.Hidden("ApproverId", User.Identity.GetUserId())
+
+            <button>Approve</button>
+        }
+        using (Html.BeginForm("Decline", "ProductAdditionRequests", FormMethod.Post))
+        {
+            @Html.HiddenFor(model => model.Id)
+            @Html.Hidden("ApproverId", User.Identity.GetUserId())
+
+            <button>Decline</button>
+        }
+    }
+
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id })
+    using (Html.BeginForm(actionName: $"Delete/{Model.Id}", controllerName: "ProductAdditionRequests"))
+    {
+        @Html.HttpMethodOverride(HttpVerbs.Delete)
+        <button>Delete</button>
+    }
+}
+<p>
+    @Html.ActionLink("Back to List", "Index")
+</p>

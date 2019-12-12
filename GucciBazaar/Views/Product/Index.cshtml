@@ -1,0 +1,73 @@
+﻿@model IEnumerable<GucciBazaar.Models.Product>
+@using Microsoft.AspNet.Identity
+@using GucciBazaar.Models
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @if (User.IsInRole("Administrator"))
+    {
+        @Html.ActionLink("Create New", "New")
+        <text>|</text>
+    }
+    @Html.ActionLink("Sort By Rating", "Index", "Product", new { sortBy = SortTypes.Rating }, null) |
+    @Html.ActionLink("Sort By Cheapest", "Index", new { sortBy = SortTypes.Cheap }) |
+    @Html.ActionLink("Sort By Expensive", "Index", new { sortBy = SortTypes.Expensive })
+    @using (Html.BeginForm(actionName: "Index", controllerName: "Product"))
+    {
+        @Html.TextBox("Name", "", new { @class = "form-control" })
+        @Html.Hidden("sortBy", SortTypes.Name)
+        <input type="submit" value="Sort by name" />
+    }
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.CreationDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UpdateDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.User)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Title)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Description)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Category)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Price)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Rating)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ImagePath)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            @Html.Partial("ProductInfo", item)
+            <td>
+                @Html.ActionLink("Details", "Show", new { id = item.Id })
+                @if (User.Identity.GetUserId() == item.UserId || User.IsInRole("Administrator"))
+                {
+                    <text>|</text>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.Id }) <text>|</text>
+                    @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                }
+            </td>
+        </tr>
+    }
+</table>

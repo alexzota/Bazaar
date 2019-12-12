@@ -1,0 +1,46 @@
+﻿@model GucciBazaar.Models.ShoppingCartProduct
+
+<div>
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Product.Title)
+        </dt>
+        <dd>
+            <a href="@($"Product/Show/{@Model.Product.Id}")">@Html.DisplayFor(model => model.Product.Title)</a>
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Quantity)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Quantity)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Price)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Price)
+        </dd>
+        @Html.HiddenFor(x => x.Id)
+
+        @using (Html.BeginForm("AddOne", "ShoppingCart", new { Id = Model.Id }))
+        {
+            @Html.HttpMethodOverride(HttpVerbs.Put)
+            <button>Add 1</button>
+        }
+        @using (Html.BeginForm("RemoveOne", "ShoppingCart", new { Id = Model.Id }))
+        {
+            @Html.HttpMethodOverride(HttpVerbs.Put)
+            <button>Remove 1</button>
+        }
+        @using (Html.BeginForm("RemoveAll", "ShoppingCart", new { Id = Model.Id }))
+        {
+            @Html.HttpMethodOverride(HttpVerbs.Delete)
+            <button>Remove All</button>
+        }
+
+    </dl>
+</div>

@@ -1,0 +1,68 @@
+﻿@model GucciBazaar.Models.Review
+@using Microsoft.AspNet.Identity
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.CreationDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CreationDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.UpdateDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UpdateDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.UserId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UserId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Title)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Title)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Rating)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Rating)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @if (Model.UserId == User.Identity.GetUserId() || User.IsInRole("Administrator"))
+    {
+        @Html.ActionLink(linkText: "Edit Review", actionName: $"Edit/{Model.Id}", controllerName : "Review")
+
+        using (Html.BeginForm(actionName: $"Delete/{Model.Id}", controllerName: "Review"))
+        {
+            @Html.HttpMethodOverride(HttpVerbs.Delete)
+
+            <input type="submit" value="Delete Review" />
+        }
+    }
+</p>

@@ -1,0 +1,43 @@
+﻿@model GucciBazaar.Models.Product
+
+@{
+    ViewBag.Title = "Edit Product";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title></title>
+</head>
+<body>
+    <div>
+        @using (Html.BeginForm(actionName: "Edit", controllerName: "Product", routeValues: new { Id = @Model.Id }))
+        {
+            @Html.HttpMethodOverride(HttpVerbs.Put)
+            @Html.HiddenFor(m => m.Id)
+            <br />
+            @Html.Label("Title", "Titlu Product")
+            <br />
+            @Html.EditorFor(m => m.Title)
+            @Html.ValidationMessageFor(m => m.Title, "", new { @class = "text-danger" })
+            <br /><br />
+            @Html.Label("Content", "Continut Product")
+            <br />
+            @Html.EditorFor(m => m.Description)
+            @Html.ValidationMessageFor(m => m.Description, "", new { @class = "text-danger" })
+            <br /><br />
+            @Html.HiddenFor(m => m.CreationDate)
+            <br />
+            <label>Selectati categoria</label>
+            @Html.DropDownListFor(m => m.CategoryId,
+                 new SelectList(Model.Categories, "Value", "Text"),
+                 "Selectati categoria", new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.CategoryId, "", new { @class = "text-danger" })
+            <br />
+            <button class="btn btn-sm btn-success" type="submit">Modifica Produs</button>
+        }
+    </div>
+</body>
+</html>

@@ -1,0 +1,43 @@
+﻿@model GucciBazaar.Models.ApplicationUser[]
+@{
+    ViewBag.Title = "Afisare utilizatori";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title></title>
+</head>
+<body>
+    <div>
+        <ol class="breadcrumb">
+            <li><h3>@ViewBag.Title</h3></li>
+        </ol>
+        @foreach (var user in Model)
+        {
+            <div class="panel-heading">Nume utilizator: @user.UserName</div>
+            <div class="panel-body">
+                <i class="glyphicon glyphicon-envelope"></i> Email utilizator:
+                <span class="label label-default">@user.Email</span>
+                <br /><br />
+
+                @if (@user.PhoneNumber != null)
+                {
+                <i class="glyphicon glyphicon-phone"></i>@:Telefon utilizator:<span class="label label-default">@user.PhoneNumber</span>
+            }
+            </div>
+            <div class="panel-footer">
+                <a class="btn btn-sm btn-success" href="/Users/Show/@user.Id">
+                    Arata utilizator
+                </a>
+                <a class="btn btn-sm btn-success" href="/Users/Edit/@user.Id">
+                    Editare utilizator
+                </a>
+            </div>
+            <br /><br />
+        }
+    </div>
+</body>
+</html>

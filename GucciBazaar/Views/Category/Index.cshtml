@@ -1,0 +1,28 @@
+﻿@model GucciBazaar.Models.Category[]
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>
+        <h2>@ViewBag.Title</h2>
+    </title>
+    <h1>@ViewBag.message</h1>
+</head>
+<body>
+    <div>
+        @foreach (var category in Model)
+        {
+            <p>@category.Name</p>
+            <a href="/Category/Show/@category.Id">Afisare Categorie</a>
+            <br />
+            <br />
+        }
+    </div>
+</body>
+</html>

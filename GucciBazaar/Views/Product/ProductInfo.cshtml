@@ -1,0 +1,31 @@
+﻿@model GucciBazaar.Models.Product
+
+<div>
+        <td>
+            @Html.DisplayFor(modelItem => Model.CreationDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => Model.UpdateDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => Model.User.UserName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => Model.Title)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => Model.Description)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => Model.Category.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => Model.Price)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => Model.Rating)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => Model.ImagePath)
+        </td>
+</div>

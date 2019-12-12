@@ -1,0 +1,29 @@
+﻿@model GucciBazaar.Models.ShoppingCart
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<div>
+    <h4>ShoppingCart</h4>
+    <hr />
+    <dl class="dl-horizontal">
+
+        <dt>
+            @Html.DisplayNameFor(model => model.UpdateDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UpdateDate)
+        </dd>
+
+        @foreach(var cartProduct in Model.Products)
+        {
+            @Html.Partial("ShoppingCartProduct", cartProduct)
+        }
+
+    </dl>
+    Total price : @ViewBag.TotalPrice
+</div>
