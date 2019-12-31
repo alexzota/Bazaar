@@ -91,5 +91,21 @@ namespace GucciBazaar.Controllers
             }
             return selectList;
         }
+        [Route("Users/Delete/{Id}")]
+        public ActionResult Delete(string Id)
+        {
+            try
+            {
+                ApplicationUser user = db.Users.Find(Id);
+                db.Users.Remove(user);
+                TempData["message"] = $"Utilizatorul a fost sters";
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            catch (Exception)
+            {
+                return RedirectToAction("Index");
+            }
+        }
     }
 }

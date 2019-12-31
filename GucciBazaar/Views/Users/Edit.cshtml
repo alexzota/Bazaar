@@ -13,34 +13,38 @@
 </head>
 <body>
     <div>
-        <ol class="breadcrumb">
-            <li><h3>@ViewBag.Title</h3></li>
-        </ol>
-        <form method="post" action="/Users/Edit/@Model.Id">
-            @Html.HttpMethodOverride(HttpVerbs.Put)
-            @Html.HiddenFor(m => m.Id)
-            <br />
-            <i class="glyphicon glyphicon-user"></i>
-            @Html.Label("UserName", "Nume utilizator", new { @class = "" })
-            <br />
-            @Html.EditorFor(m => m.UserName)
-            <br /><br />
-            <i class="glyphicon glyphicon-envelope"></i>
-            @Html.Label("Email", "Email utilizator", new { @class = "" })
-            <br />
-            @Html.EditorFor(m => m.Email)
-            <br /><br />
-            <i class="glyphicon glyphicon-phone"></i>
-            @Html.Label("PhoneNumber", "Numar telefon")
-            <br />
-            @Html.EditorFor(m => m.PhoneNumber)
-            <br /><br />
-            <i class="glyphicon glyphicon-th-list"></i>
-            <label>Selectati rolul</label>
-            @Html.DropDownList("newRole", new SelectList(Model.AllRoles, "Value",
-           "Text", (string)ViewBag.userRole), null , new { @class = "form-control" })
-            <br />
-            <button class="btn btn-sm btn-success" type="submit">
+
+        <form class="form-container" method="post" action="/Users/Edit/@Model.Id">
+            <div class="title">
+                <h3>Edit user</h3>
+            </div>
+            <div>
+                @Html.HttpMethodOverride(HttpVerbs.Put)
+                @Html.HiddenFor(m => m.Id)
+            </div>
+            <div>
+                <i class="glyphicon glyphicon-user"></i>
+                @Html.Label("UserName", "Nume utilizator", new { @class = "" })
+                @Html.EditorFor(m => m.UserName)
+            </div>
+            <div>
+                <i class="glyphicon glyphicon-envelope"></i>
+                @Html.Label("Email", "Email utilizator", new { @class = "" })
+                @Html.EditorFor(m => m.Email)
+            </div>
+            <div>
+                <i class="glyphicon glyphicon-phone"></i>
+                @Html.Label("PhoneNumber", "Numar telefon")
+                @Html.EditorFor(m => m.PhoneNumber)
+            </div>
+            <div class="select-item">
+                <i style="margin-top:8px" class="glyphicon glyphicon-th-list"></i>
+                <label id="label-select">Selectati rolul</label>
+                @Html.DropDownList("newRole", new SelectList(Model.AllRoles, "Value",
+               "Text", (string)ViewBag.userRole), null , new { @class = "form-control" })
+            </div>
+
+            <button class="btn-edit" type="submit">
                 Modifica datele utilizatorului
             </button>
         </form>

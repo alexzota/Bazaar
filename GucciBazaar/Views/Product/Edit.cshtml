@@ -12,31 +12,32 @@
     <title></title>
 </head>
 <body>
-    <div>
+    <div style="justify-content:space-between" class="form-container">
+        <h2 style="margin-bottom:20px">Edit product</h2>
         @using (Html.BeginForm(actionName: "Edit", controllerName: "Product", routeValues: new { Id = @Model.Id }))
-        {
+        {   <div>
             @Html.HttpMethodOverride(HttpVerbs.Put)
             @Html.HiddenFor(m => m.Id)
-            <br />
-            @Html.Label("Title", "Titlu Product")
-            <br />
+            </div>
+            <div>
+            @Html.Label("Title", "Title Product")
             @Html.EditorFor(m => m.Title)
             @Html.ValidationMessageFor(m => m.Title, "", new { @class = "text-danger" })
-            <br /><br />
-            @Html.Label("Content", "Continut Product")
-            <br />
+            </div>
+            <div>
+            @Html.Label("Content", "Content Product")
             @Html.EditorFor(m => m.Description)
             @Html.ValidationMessageFor(m => m.Description, "", new { @class = "text-danger" })
-            <br /><br />
+            </div>
             @Html.HiddenFor(m => m.CreationDate)
-            <br />
-            <label>Selectati categoria</label>
-            @Html.DropDownListFor(m => m.CategoryId,
-                 new SelectList(Model.Categories, "Value", "Text"),
-                 "Selectati categoria", new { @class = "form-control" })
-            @Html.ValidationMessageFor(m => m.CategoryId, "", new { @class = "text-danger" })
-            <br />
-            <button class="btn btn-sm btn-success" type="submit">Modifica Produs</button>
+            <div class="select-item">
+                <label>Select category</label>
+                @Html.DropDownListFor(m => m.CategoryId,
+                     new SelectList(Model.Categories, "Value", "Text"),
+                     "Select category", new { @class = "form-control" })
+                @Html.ValidationMessageFor(m => m.CategoryId, "", new { @class = "text-danger" })
+            </div>
+            <button class="btn-edit" style="margin:40px" type="submit">Edit</button>
         }
     </div>
 </body>

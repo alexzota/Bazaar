@@ -5,55 +5,79 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - My ASP.NET Application</title>
+    <link rel="stylesheet" type="text/css" href="~/Content/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="~/Content/Site.css">
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
 
 </head>
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                @Html.ActionLink("Bazaar", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+    <div id="mySidebar" class="sidebar">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
+        <a href="#">@Html.ActionLink("Home", "Index", "Home")</a>
+        <a href="#">@Html.ActionLink("About", "About", "Home")</a>
+        <button class="dropdown-btn">
+            Products
+            <span class="caret"></span>
+            @*<a href="#">@Html.ActionLink("Products", "Index", "Product")</a>*@
+        </button>
+        <div class="dropdown-container">
+            <a href="#">@Html.ActionLink("Show Products", "Index", "Product")</a>
+            @if (User.IsInRole("Editor") || User.IsInRole("Administrator"))
+            {
+                <a href="#">@Html.ActionLink("New Product Request", "New", "ProductAdditionRequests")</a>
+                <a href="#">@Html.ActionLink("Your Product Requests", "Index", "ProductAdditionRequests")</a>
+
+                if (User.IsInRole("Administrator"))
+                {
+                    <a href="#">@Html.ActionLink("Add Product", "New", "Product")</a>
+                    <a href="#">@Html.ActionLink("Product Requests", "Index", "ProductAdditionRequests")</a>
+                }
+            }
+        </div>
+        @if (User.IsInRole("Administrator"))
+        {
+            <button class="dropdown-btn">
+                Categories
+                <span class="caret"></span>
+            </button>
+            <div class="dropdown-container">
+                <a href="#">@Html.ActionLink("Show all categories", "Index", "Category")</a>
+                <a href="#">@Html.ActionLink("Add category", "New", "Category")</a>
             </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Products", "Index", "Product")</li>
-                    <li>@Html.ActionLink(linkText: "Shopping Cart",actionName: "Index",controllerName: "ShoppingCart",routeValues: new { userId = User.Identity.GetUserId()},htmlAttributes: null)</li>
-
-                    @if (User.IsInRole("Editor") || User.IsInRole("Administrator"))
-                    {
-                        <li>@Html.ActionLink("New Product Request", "New", "ProductAdditionRequests")</li>
-                        <li>@Html.ActionLink("Your Product Requests", "Index", "ProductAdditionRequests")</li>
-
-                        if (User.IsInRole("Administrator"))
-                        {
-                            <li>@Html.ActionLink("Add Product", "New", "Product")</li>
-                            <li>@Html.ActionLink("Product Requests", "Index", "ProductAdditionRequests")</li>
-                            <li>@Html.ActionLink("Categorii", "Index", "Category")</li>
-                            <li>@Html.ActionLink("Adauga Categorie", "New", "Category")</li>
-                            <li>@Html.ActionLink("Afisare utilizatori", "Index", "Users")</li>
-                        }
-                    }
-                </ul>
-                @Html.Partial("_LoginPartial")
+            <a href="#">@Html.ActionLink("Afisare utilizatori", "Index", "Users")</a>
+            }
+        <a href="#">@Html.ActionLink("Contact", "Contact", "Home")</a>
+    </div>
+        
+    <button class="openbtn" id="open" onclick="openNav()">☰ </button>
+    <div id="main">
+        <div class="topnav">
+            @Html.ActionLink("Bazaar", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+            <div class="search-container">
+            <form action="/action_page.php">
+                <input style="width:70%;" type="text" placeholder="Search.." name="search">
+            </form>
+        </div>
+            @Html.Partial("_LoginPartial")
+            <div class="shopping">
+                <img class="icons" src="https://image.flaticon.com/icons/png/512/263/263142.png" />
+               @Html.ActionLink(linkText: "Shopping Cart", actionName: "Index", controllerName: "ShoppingCart", routeValues: new { userId = User.Identity.GetUserId() }, htmlAttributes: null)
             </div>
         </div>
-    </div>
-    <div class="container body-content">
-        @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
-        </footer>
-    </div>
+        
 
+        <div class="container body-content">
+            @RenderBody()
+            <hr />
+            <footer class="footer">
+                <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+            </footer>
+        </div>
+    </div>
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/Scripts/Sidebar.js");
     @RenderSection("scripts", required: false)
 </body>
 </html>

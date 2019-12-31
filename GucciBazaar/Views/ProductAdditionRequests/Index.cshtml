@@ -4,93 +4,99 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<div class="text-box">
+    <a href="/ProductAdditionRequest/New" class="btn btn-white btn-animate">Create new</a>
+</div>
+<div class="table-wrapper"></div>
+<table class="fl-table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.CreationDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UpdateDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CategoryId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UserId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ApproverId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ImagePath)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Price)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CurrentState)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CreationDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UpdateDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Title)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CategoryId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UserId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ApproverId)
+                </td>
+                <td>
+                    <a href="@Html.DisplayFor(modelItem => item.ImagePath)">
+                        <img class="td-icons" src="https://cdn1.iconfinder.com/data/icons/social-17/48/photos2-512.png"/>
+                    </a>
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Price)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CurrentState)
+                </td>
 
-<p>
-    @Html.ActionLink("Create New", "New")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.CreationDate)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.UpdateDate)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Title)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Description)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.CategoryId)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.UserId)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ApproverId)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ImagePath)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Price)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.CurrentState)
-        </th>
-        <th></th>
-    </tr>
+                <td class="td-column">
+                    <a href="/ProductAdditionRequest/Show/@item.Id"><img class="td-icons" src="https://image.flaticon.com/icons/svg/1/1755.svg" /></a>
+                    @if (item.CurrentState == GucciBazaar.Models.StateTypes.Pending)
+                    {
+                        <a href="/ProductAdditionRequest/Edit/@item.Id"><img class="td-icons" src="https://cdn3.iconfinder.com/data/icons/text-editing-2/100/Artboard_28-512.png" /></a>
+                      
+                        using (Html.BeginForm(actionName: $"Delete/{item.Id}", controllerName: "ProductAdditionRequests"))
+                        {
+                            @Html.HttpMethodOverride(HttpVerbs.Delete)
+                            <img class="td-icons" src="https://png2.cleanpng.com/sh/513c1cb2acc487a93fb9fbd8b6871e4a/L0KzQYm3V8EyN51nipH0aYP2gLBuTfNwdaF6jNd7LXnmf7B6TfNtcaEyeeR9LXTofLb7hb1qdZJsfZ9yY3BxPYbpVMVla2o7fKs8OEC1PoO6WcE2QGM9Sac8MUOzRYK4UMg5QWgziNDw/kisspng-computer-icons-clip-art-delete-image-icon-5b45dc96d93802.2391582815313051108897.png" />
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.CreationDate)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.UpdateDate)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Title)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Description)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CategoryId)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.UserId)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ApproverId)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ImagePath)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Price)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CurrentState)
-        </td>
-
-        <td>
-            @Html.ActionLink("Details", "Show", new { id = item.Id }) |
-            @if (item.CurrentState == GucciBazaar.Models.StateTypes.Pending)
-            {
-                @Html.ActionLink("Edit", "Edit", new { id = item.Id })
-                <text>|</text>
-                using (Html.BeginForm(actionName: $"Delete/{item.Id}", controllerName: "ProductAdditionRequests"))
-                {
-                    @Html.HttpMethodOverride(HttpVerbs.Delete)
-                    <button>Delete</button>
-                }
-            }
-        </td>
-    </tr>
-}
-
+                        }
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
 </table>
+</div>

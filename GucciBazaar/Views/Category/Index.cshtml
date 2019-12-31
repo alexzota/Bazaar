@@ -1,7 +1,7 @@
 ﻿@model GucciBazaar.Models.Category[]
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Afisare categorii";
 }
 
 <!DOCTYPE html>
@@ -10,19 +10,27 @@
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>
-        <h2>@ViewBag.Title</h2>
     </title>
-    <h1>@ViewBag.message</h1>
 </head>
 <body>
+    <div class="title">
+        <h3>@ViewBag.Title</h3>
+    </div>
     <div>
-        @foreach (var category in Model)
-        {
-            <p>@category.Name</p>
-            <a href="/Category/Show/@category.Id">Afisare Categorie</a>
-            <br />
-            <br />
-        }
+        <ul>
+            @foreach (var category in Model)
+            {
+                <li class="utilizator">
+                    @category.Name
+                    <a href="/Category/Show/@category.Id">
+                        <img class="small-icons" src="http://icons.iconarchive.com/icons/icons8/ios7/512/Programming-Show-Property-icon.png" />
+                    </a>
+                    @*<a  href="/Users/Delete/@user.Id">
+                    <img class="small-icons" src="https://cdn2.iconfinder.com/data/icons/apple-inspire-white/100/Apple-64-512.png"/>
+                </a>*@
+                </li>
+            }
+        </ul>
     </div>
 </body>
 </html>

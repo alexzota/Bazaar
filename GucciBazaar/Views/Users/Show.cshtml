@@ -11,27 +11,38 @@
     <title></title>
 </head>
 <body>
-    <div>
-        <div class="panel-heading">Nume utilizator: @Model.UserName</div>
-        <div class="panel-body">
-            <i class="glyphicon glyphicon-envelope"></i> Email utilizator:
-            <span class="label label-default">@Model.Email</span>
-            <br /><br />
-            @Html.HiddenFor(m => m.Id)
-
-            @if (@Model.PhoneNumber != null)
-            {
-                <i class="glyphicon glyphicon-phone"></i>@:Telefon utilizator:<span class="label label-default">@Model.PhoneNumber</span>
-            }
+    <div class="card">
+        <div style="background-color:#cceeff;">
+            <img class="person" src="https://www.pinclipart.com/picdir/big/52-528506_open-person-icon-png-clipart.png"/>
         </div>
-        <div class="panel-footer">
-            <a class="btn btn btn-success" href="/Users/Edit/@Model.Id">
-                Editare utilizator
-            </a>
-            @if (Model.Id != User.Identity.GetUserId())
-            {
-                <a class="btn btn-success" href="/Users/Delete/@Model.Id">Sterge utilizator</a>
-            }
+        <div>
+            <div class="panel-heading">Nume utilizator: @Model.UserName</div>
+            <div class="panel-body">
+                <i class="glyphicon glyphicon-envelope"></i> Email utilizator:
+                <span class="label label-default">@Model.Email</span>
+                <br /><br />
+                @Html.HiddenFor(m => m.Id)
+
+                @if (@Model.PhoneNumber != null)
+                {
+                    <i class="glyphicon glyphicon-phone"></i>@:Telefon utilizator:<span class="label label-default">@Model.PhoneNumber</span>
+                }
+            </div>
+            <div style="display:flex">
+                <div class="button_cont" align="center">
+                    <a class="example_a" href="/Users/Edit/@Model.Id" target="_blank" rel="nofollow noopener">
+                        Edit
+                    </a>
+                </div>
+                @if (Model.Id != User.Identity.GetUserId())
+                {
+                    <div class="button_cont" align="center">
+                        <a class="example_a" href="/Users/Delete/@Model.Id" target="_blank" rel="nofollow noopener">
+                            Delete
+                        </a>
+                    </div>
+                }
+            </div>
         </div>
     </div>
 </body>

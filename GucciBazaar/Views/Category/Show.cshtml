@@ -12,15 +12,18 @@
     <title></title>
 </head>
 <body>
-    <div>
+    <div class="form-container">
         <br />
-        <p>@Model.Name</p>
-        @Html.ActionLink(linkText: "Edit", actionName: "Edit", routeValues: new { Id = Model.Id }, htmlAttributes: null)
-        <br />
-        <form method="post" action="/Category/Delete/@Model.Id">
-            @Html.HttpMethodOverride(HttpVerbs.Delete)
-            <button type="submit">Sterge categorie</button>
-        </form>
+        <p>Name: @Model.Name</p>
+        <div style="margin-top:40px;" class="butoane">
+            <a style="margin-right:10px;" href="/Category/Edit/@Model.Id">
+                <input type="submit" class="btn btn-primary" value="Edit category" />
+            </a>
+            <form method="post" action="/Category/Delete/@Model.Id">
+                @Html.HttpMethodOverride(HttpVerbs.Delete)
+                <input type="submit" class="btn btn-primary" value="Delete category" />
+            </form>
+        </div>
     </div>
 </body>
 </html>

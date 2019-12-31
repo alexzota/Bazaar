@@ -5,69 +5,82 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
-
 <p>
-    @if (User.IsInRole("Administrator"))
-    {
-        @Html.ActionLink("Create New", "New")
-        <text>|</text>
-    }
-    @Html.ActionLink("Sort By Rating", "Index", "Product", new { sortBy = SortTypes.Rating }, null) |
-    @Html.ActionLink("Sort By Cheapest", "Index", new { sortBy = SortTypes.Cheap }) |
-    @Html.ActionLink("Sort By Expensive", "Index", new { sortBy = SortTypes.Expensive })
-    @using (Html.BeginForm(actionName: "Index", controllerName: "Product"))
-    {
-        @Html.TextBox("Name", "", new { @class = "form-control" })
-        @Html.Hidden("sortBy", SortTypes.Name)
-        <input type="submit" value="Sort by name" />
-    }
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.CreationDate)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.UpdateDate)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.User)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Title)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Description)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Category)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Price)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Rating)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ImagePath)
-        </th>
-        <th></th>
-    </tr>
 
-    @foreach (var item in Model)
-    {
-        <tr>
-            @Html.Partial("ProductInfo", item)
-            <td>
-                @Html.ActionLink("Details", "Show", new { id = item.Id })
-                @if (User.Identity.GetUserId() == item.UserId || User.IsInRole("Administrator"))
-                {
-                    <text>|</text>
-                    @Html.ActionLink("Edit", "Edit", new { id = item.Id }) <text>|</text>
-                    @Html.ActionLink("Delete", "Delete", new { id = item.Id })
-                }
-            </td>
-        </tr>
-    }
-</table>
+    <div>
+        @using (Html.BeginForm(actionName: "Index", controllerName: "Product"))
+        {<input type="submit" class="btn btn-white btn-animate" value="Search by name" />
+            @Html.TextBox("Name", "", new { @class = "search-input" })
+            @Html.Hidden("sortBy", SortTypes.Name)
+
+        }
+    </div>
+    <div class="header-product">
+        @if (User.IsInRole("Administrator"))
+        {
+            <div class="text-box">
+                <a href="/Product/New" class="btn btn-white btn-animate">Create new</a>
+            </div>
+
+
+        }
+        <div>@Html.ActionLink("Sort By Rating", "Index", "Product", new { sortBy = SortTypes.Rating }, new { @class= "btn btn-white btn-animate" })</div>
+        <div>@Html.ActionLink("Sort By Cheapest", "Index", new { sortBy = SortTypes.Cheap }, new { @class = "btn btn-white btn-animate" }) </div>
+        <div>@Html.ActionLink("Sort By Expensive", "Index", new { sortBy = SortTypes.Expensive }, new { @class = "btn btn-white btn-animate" })</div>
+        <div></div>
+    </div>
+</p>
+<div class="table-wrapper">
+    <table class="fl-table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.CreationDate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.UpdateDate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.User)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Title)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Description)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Category)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Price)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Rating)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ImagePath)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    @Html.Partial("ProductInfo", item)
+                    <td >
+                        <a href="/Product/Show/@item.Id"><img class="td-icons" src="https://image.flaticon.com/icons/svg/1/1755.svg"/></a>
+                        
+                        @if (User.Identity.GetUserId() == item.UserId || User.IsInRole("Administrator"))
+                        {
+                           
+                        <a href="/Product/Edit/@item.Id"><img class="td-icons" src="https://cdn3.iconfinder.com/data/icons/text-editing-2/100/Artboard_28-512.png" /></a>
+                        <a href="/Product/Delete/@item.Id"><img class="td-icons" src="https://png2.cleanpng.com/sh/513c1cb2acc487a93fb9fbd8b6871e4a/L0KzQYm3V8EyN51nipH0aYP2gLBuTfNwdaF6jNd7LXnmf7B6TfNtcaEyeeR9LXTofLb7hb1qdZJsfZ9yY3BxPYbpVMVla2o7fKs8OEC1PoO6WcE2QGM9Sac8MUOzRYK4UMg5QWgziNDw/kisspng-computer-icons-clip-art-delete-image-icon-5b45dc96d93802.2391582815313051108897.png" /></a>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

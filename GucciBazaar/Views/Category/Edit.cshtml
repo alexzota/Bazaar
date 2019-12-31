@@ -12,16 +12,15 @@
     <title></title>
 </head>
 <body>
-    <div>
-        <h2>Edit</h2>
-        <p>Afisare formular de editare categorie - cu datele vechi ale Categoriei</p>
+    <div class="form-container">
+        <h2 class="title">Edit category</h2>
         <form method="post" action="/Category/Edit/@Model.Id">
             @Html.HttpMethodOverride(HttpVerbs.Put)
-            <label>Nume</label>
+            <label>Nume:</label>
             <br />
             <input type="text" name="CategoryName" value="@Model.Name" />
             <br /><br />
-            <button type="submit">Modifica categorie</button>
+            <input type="submit" class="btn btn-primary" value="Edit"/>
         </form>
     </div>
 </body>

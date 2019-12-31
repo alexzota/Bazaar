@@ -4,90 +4,35 @@
     ViewBag.Title = "Show";
 }
 
-<h2>Show</h2>
+<div style="margin-left:300px;" class="description-product">
+    <div style="display:flex">
 
-<div>
-    <h4>Product</h4>
+        <img class="image-produs" src="@Url.Content(Model.ImagePath)" alt="Image" />
+        <div class="info-produs">
+            <h4>@Html.DisplayFor(model => model.Title)</h4>
+            <hr />
+            <p>Description: @Html.DisplayFor(model => model.Description)</p>
+
+            <p>Price: @Html.DisplayFor(model => model.Price)</p>
+            <p>Rating: @Html.DisplayFor(model => model.Rating)</p>
+        </div>
+    </div>
     <hr />
     <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.CreationDate)
-        </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.CreationDate)
-        </dd>
+        <div class="butoane">
+            @using (Html.BeginForm(actionName: "AddProduct", controllerName: "ShoppingCart", routeValues: new { userId = User.Identity.GetUserId(), productId = Model.Id }))
+            {
+                @Html.HttpMethodOverride(HttpVerbs.Put)
+                <input type="submit" style="margin:20px" class="btn btn-primary" value="Add To Cart" />
+            }
+            <div style="padding:20px">
+                <input type="submit" class="btn btn-primary" data-toggle="modal" data-target="#modalConfirmDelete" value="Add review" />
+            </div>
+        </div>
+    </dl>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.UpdateDate)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.UpdateDate)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.UserId)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.UserId)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Title)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Title)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Description)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Description)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.CategoryId)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.CategoryId)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Price)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Price)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Rating)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Rating)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.ImagePath)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.ImagePath)
-        </dd>
-
-        @using (Html.BeginForm(actionName: "AddProduct", controllerName: "ShoppingCart", routeValues: new { userId = User.Identity.GetUserId(), productId = Model.Id }))
-        {
-            @Html.HttpMethodOverride(HttpVerbs.Put)
-            <input type="submit" value="Add To Cart" />
-        }
-
+    <p>
         Reviews :
         @{int a = 0;}
         @foreach (var review in Model.Reviews)
@@ -95,38 +40,53 @@
             @Html.Partial("Review", review)
             if (review.UserId == User.Identity.GetUserId()) { a = 1; }
         }
-    </dl>
+    </p>
 </div>
-<p>
-    @{ if (a == 0)
+
+<div class="modal fade" id="modalConfirmDelete" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog modal-sm modal-notify modal-danger" role="document">
+        <div class="modal-content text-center">
+            <div class="modal-body">
+                <div class="new-modal">
+                    @{ if (a == 0)
+                        {
+                            using (Html.BeginForm(actionName: "New", controllerName: "Review"))
+                            {<div>
+                                    <label>Title:</label>
+                                    @Html.TextBox("Title", "", new { @class = "form-control" })
+                                </div>
+
+                                <div>
+                                    <label>Continut:</label>
+                                    @Html.TextArea("Description", "", new { @class = "form-control" })
+                                </div>
+                                <div>
+                                    <label>Rating:</label>
+                                    <input type="number" name="Rating" min="1" max="5">
+                                </div>
+
+
+                                @Html.Hidden("ProductId", Model.Id)
+                                @Html.Hidden("UserId", User.Identity.GetUserId())
+
+                                <input style="margin:30px 90px 30px" class="btn btn-primary" type="submit" value="Add Review" />
+                            }
+                        }
+                    }
+
+
+
+                    @*@if (User.IsInRole("Administrator") || Model.UserId == User.Identity.GetUserId())
         {
-            using (Html.BeginForm(actionName: "New", controllerName: "Review"))
-            {
-                <text>Title:</text>
-                @Html.TextBox("Title", "", new { @class = "form-control" })
-                <text>Rating:</text>
-                <input type="number" name="Rating" min="1" max="5">
-                <br />
-                <text>Continut:</text>
-                @Html.TextArea("Description", "", new { @class = "form-control" })
-
-                @Html.Hidden("ProductId", Model.Id)
-                @Html.Hidden("UserId", User.Identity.GetUserId())
-
-                <input type="submit" value="Add Review" />
-            }
+            @Html.ActionLink("Edit", "Edit", new { id = Model.Id })
+            @Html.ActionLink("Delete", "Delete", new { id = Model.Id })
         }
-        <text>|</text>
-    }
+        @Html.ActionLink("Back to List", "Index")*@
+                </div></div>
+        </div>
+    </div>
+</div>
 
+@Scripts.Render("~/Scripts/afisareUtilizatori.js");
 
-
-    @if (User.IsInRole("Administrator") || Model.UserId == User.Identity.GetUserId())
-    {
-        @Html.ActionLink("Edit", "Edit", new { id = Model.Id })
-        <text>|</text>
-        @Html.ActionLink("Delete", "Delete", new { id = Model.Id })
-        <text>|</text>
-    }
-    @Html.ActionLink("Back to List", "Index")
-</p>
